@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-import {AtomKeys} from '../../constants/recoilKeys' // 
+import {AtomKeys} from '../../constants/recoilKeys'
 import type { Task } from '../../types'
 
 export const tasksState = atom<Task[]>({
