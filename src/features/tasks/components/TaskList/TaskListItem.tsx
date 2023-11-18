@@ -4,8 +4,7 @@ import {
     TASK_PROGRESS_STATUS,
     TASK_PROGRESS_ID,
   } from '../../../../constants/app'
-import { useRecoilState } from 'recoil'  // Ditambahkan
-import { tasksState } from '../../TaskAtoms'  // Ditambahkan
+import {useTasksAction} from '../hooks/Tasks'
 
 interface TaskListItemProps {
   task: Task
@@ -42,15 +41,7 @@ const getIconStyle = (progressOrder: number): React.CSSProperties => {
 }
 
 const TaskListItem = ({ task }: TaskListItemProps): JSX.Element => {
-  const [tasks, setTasks] = useRecoilState<Task[]>(tasksState)
-  const completeTask = (taskId: number): void => {
-    const updatedTasks: Task[] = tasks.map((task) =>
-      task.id === taskId
-        ? { ...task, progressOrder: TASK_PROGRESS_ID.COMPLETED }
-        : task,
-    )
-    setTasks(updatedTasks)
-  }
+  const {completeTask} = useTasksAction()
 
 
   return (
