@@ -5,6 +5,7 @@ import type { Task, CSSProperties } from '../../../../types'
 interface TaskColumnProps {
   columnTitle: string
   tasks: Task[]
+  onMoveTask: (taskId: number, directionNumber: 1 | -1) => void
 }
 
 const TaskColumn = ({ columnTitle, tasks }: TaskColumnProps): JSX.Element => {
