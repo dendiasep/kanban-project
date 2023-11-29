@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
+import { tasksState } from '../TaskAtoms'
 import {
     completedTasksSelector,
     uncompletedTasksSelector,
@@ -20,7 +21,7 @@ const TaskSummary = (): JSX.Element => {
             <div style={styles.list}>
                 <span className="material-icons">check_circle</span>
                 <h2>
-                    You have completed{completedTasks.length}{' '}
+                    You have completed {completedTasks.length}{' '}
                     {completedTasks.length <= 1 ? 'task' : 'tasks'}
                 </h2>
             </div>
