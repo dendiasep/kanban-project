@@ -19,6 +19,19 @@ export const useTasksAction = (): useTaskActionType => {
     )
     setTasks(updatedTasks)
   }
+
+  const moveTaskCard = (taskId: number, directionNumber: 1 | -1): void => {
+    const updatedTasks: Task[] = tasks.map((task) => {
+      if (task.id === taskId) {
+        const currentOrder = task.progressOrder || 0;
+        const newOrder = currentOrder + directionNumber;
+        return { ...task, progressOrder: newOrder };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
+  
   return {
     completeTask,
     moveTaskCard,
