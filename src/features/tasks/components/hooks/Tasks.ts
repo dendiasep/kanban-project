@@ -5,6 +5,7 @@ import { TASK_PROGRESS_ID } from '../../../../constants/app'
 
 interface useTaskActionType {
   completeTask: (taskId: number) => void
+  moveTaskCard: (taskId: number, directionNumber: 1 | -1) => void
 }
 
 export const useTasksAction = (): useTaskActionType => {
@@ -19,7 +20,20 @@ export const useTasksAction = (): useTaskActionType => {
     setTasks(updatedTasks)
   }
 
+  const moveTaskCard = (taskId: number, directionNumber: 1 | -1): void => {
+    const updatedTasks: Task[] = tasks.map((task) => {
+      if (task.id === taskId) {
+        const currentOrder = task.progressOrder || 0;
+        const newOrder = currentOrder + directionNumber;
+        return { ...task, progressOrder: newOrder };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
+
   return {
     completeTask,
+    moveTaskCard,
   }
 }
