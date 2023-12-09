@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
+import TaskMenu from '../shared/TaskMenu'
+import TaskModal from '../shared/TaskModal'
 import type { Task, CSSProperties } from '../../../../types'
 import { TASK_PROGRESS_ID } from '../../../../constants/app'
+import { TASK_MODAL_TYPE } from '../../../../constants/recoilKeys'
 import {useTasksAction} from '../hooks/Tasks'
 
 interface TaskCardProps {
   task: Task
+  taskId: number
+  
 }
 
 const getArrowPositionStyle = (progressOrder: number): React.CSSProperties => {
@@ -33,6 +38,14 @@ const getIconStyle = (progressOrder: number): React.CSSProperties => {
 
 const TaskCard = ({ task }: TaskCardProps): JSX.Element => {
   const {completeTask, moveTaskCard} = useTasksAction()
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const handleEditClick = () => {
+    // Lakukan apa pun yang diperlukan saat tombol "Edit" diklik
+    setIsModalOpen(true)
+    // Misalnya, tampilkan modal edit atau navigasi ke halaman edit
+  }
+
 
   return (
     <div style={styles.taskCard}>
@@ -40,7 +53,13 @@ const TaskCard = ({ task }: TaskCardProps): JSX.Element => {
         <div className="material-icons" style={getIconStyle(task.progressOrder)} onClick={(): void => {
             completeTask(task.id) // Ditambahkan
           }}>check_circle</div>
-        <div className="material-icons" style={styles.menuIcon}>
+        <div 
+          className="material-icons" 
+          style={styles.menuIcon}
+          onClick={(): void => {
+            setIsMenuOpen(true) // Ditambahkan
+          }}
+          >
           more_vert
         </div>
       </div>
@@ -69,6 +88,18 @@ const TaskCard = ({ task }: TaskCardProps): JSX.Element => {
           </button>
         )}
       </div>
+      {isModalOpen && (
+        <TaskModal
+          headingTitle="Edit Task"
+          type={TASK_MODAL_TYPE.EDIT}
+          setIsModalOpen={setIsModalOpen}
+          defaultProgressOrder={task.progressOrder}
+          taskToEdit={task} // Mengirim data task yang akan diedit ke TaskModal
+        />
+      )}
+      {isMenuOpen && (
+        <TaskMenu setIsMenuOpen={setIsMenuOpen} taskId={task.id} onEditClick={handleEditClick} />
+      )}
     </div>
   )
 }

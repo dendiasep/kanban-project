@@ -1,22 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { Dispatch, SetStateAction } from 'react' //
 import {
   TASK_PROGRESS_ID,
   TASK_PROGRESS_STATUS,
   TASK_MODAL_TYPE
 } from '../../../../constants/app'
-import type { CSSProperties } from '../../../../types'
+import type { CSSProperties, Task } from '../../../../types'
 import { useTasksAction } from '../hooks/Tasks'
 
 interface TaskFormProps {
   defaultProgressOrder: number
   type: string
   setIsModalOpen: Dispatch<SetStateAction<boolean>>
+  taskToEdit?: Task 
+  
 }
 
 const TaskForm = ({ defaultProgressOrder,
     setIsModalOpen,
-    type 
+    type,
+    taskToEdit,
 }: TaskFormProps): JSX.Element => {
   const [title, setTitle] = useState<string>('')
   const [detail, setDetail] = useState<string>('')
@@ -24,12 +27,37 @@ const TaskForm = ({ defaultProgressOrder,
   const [progressOrder, setProgressOrder] = useState<number>(
     defaultProgressOrder,
   )
-  const { addTask } = useTasksAction()
+  const { addTask, updateTask } = useTasksAction()
+
+  useEffect(() => {
+    if (taskToEdit) {
+      setTitle(taskToEdit.title)
+      setDetail(taskToEdit.detail)
+      setDueDate(taskToEdit.dueDate)
+      setProgressOrder(taskToEdit.progressOrder)
+    }
+  }, [taskToEdit])
 
 
   const handleSubmit = (): void => {
     if (type === TASK_MODAL_TYPE.ADD) {
       addTask(title, detail, dueDate, progressOrder)
+      setIsModalOpen(false)
+    } else if (type === TASK_MODAL_TYPE.EDIT && taskToEdit) {
+      // Jika dalam mode edit, perbarui task yang ada dengan nilai yang baru
+      const updatedTask: Task = {
+        id: taskToEdit.id,
+        title,
+        detail,
+        dueDate,
+        progressOrder,
+      }
+      // Lakukan pembaruan task menggunakan fungsi dari useTasksAction
+      // (misalnya, fungsi updateTask yang perlu ditambahkan)
+      // UpdateTask(taskToEdit.id, updatedTask)
+      // setIsModalOpen(false)
+      // Perbarui task yang ada menggunakan fungsi updateTask
+      updateTask(taskToEdit.id, updatedTask)
       setIsModalOpen(false)
     }
   }

@@ -1,7 +1,8 @@
 import { useRecoilState } from 'recoil'
 import { tasksState } from '../../TaskAtoms'
 import type { Task } from '../../../../types'
-import { TASK_PROGRESS_ID } from '../../../../constants/app'
+import { 
+  TASK_PROGRESS_ID } from '../../../../constants/app'
 
 interface useTaskActionType {
   completeTask: (taskId: number) => void
@@ -12,10 +13,19 @@ interface useTaskActionType {
     dueDate: string,
     progressOrder: number,
   ) => void
+  updateTask: (taskId: number, updatedTask: Task) => void // Tambahkan definisi updateTask
+  deleteTask: (taskId: number) => void
 }
 
 export const useTasksAction = (): useTaskActionType => {
   const [tasks, setTasks] = useRecoilState<Task[]>(tasksState)
+
+  const updateTask = (taskId: number, updatedTask: Task): void => {
+    const updatedTasks: Task[] = tasks.map((task) =>
+      task.id === taskId ? updatedTask : task
+    )
+    setTasks(updatedTasks)
+  }
 
   const completeTask = (taskId: number): void => {
     const updatedTasks: Task[] = tasks.map((task) =>
@@ -53,10 +63,17 @@ export const useTasksAction = (): useTaskActionType => {
     }
     setTasks([...tasks, newTask])
   }
+
+  const deleteTask = (taskId: number): void => {
+    const updatedTasks: Task[] = tasks.filter((task) => task.id !== taskId);
+    setTasks(updatedTasks);
+  }
   
   return {
     completeTask,
     moveTaskCard,
-    addTask
+    addTask,
+    updateTask,
+    deleteTask,
   }
 }
