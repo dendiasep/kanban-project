@@ -1,4 +1,7 @@
-import React from 'react'
+import React , { useState }from 'react'
+import TaskMenu from '../shared/TaskMenu'
+import TaskModal from '../shared/TaskModal'
+import { TASK_MODAL_TYPE } from '../../../../constants/recoilKeys'
 import type { Task, CSSProperties } from '../../../../types'
 import {
     TASK_PROGRESS_STATUS,
@@ -42,8 +45,13 @@ const getIconStyle = (progressOrder: number): React.CSSProperties => {
 
 const TaskListItem = ({ task }: TaskListItemProps): JSX.Element => {
   const {completeTask} = useTasksAction()
-
-
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const handleEditClick = () => {
+    // Lakukan apa pun yang diperlukan saat tombol "Edit" diklik
+    setIsModalOpen(true)
+    // Misalnya, tampilkan modal edit atau navigasi ke halaman edit
+  }
   return (
     <div style={styles.tableBody}>
       <div style={styles.tableBodyTaskTitle}>
@@ -56,10 +64,28 @@ const TaskListItem = ({ task }: TaskListItemProps): JSX.Element => {
       <div style={styles.tableBodyDueDate}>{task.dueDate}</div>
       <div style={styles.tableBodyprogress}>{getProgressCategory(task.progressOrder)}</div>
       <div>
-        <span className="material-icons" style={styles.menuIcon}>
+        <span
+          className="material-icons"
+          style={styles.menuIcon}
+          onClick={(): void => {
+            setIsMenuOpen(true) // Ditambahkan
+          }}
+        >
           more_horiz
         </span>
       </div>
+      {isModalOpen && (
+        <TaskModal
+          headingTitle="Edit Task"
+          type={TASK_MODAL_TYPE.EDIT}
+          setIsModalOpen={setIsModalOpen}
+          defaultProgressOrder={task.progressOrder}
+          taskToEdit={task} // Mengirim data task yang akan diedit ke TaskModal
+        />
+      )}
+      {isMenuOpen && (
+        <TaskMenu setIsMenuOpen={setIsMenuOpen} taskId={task.id} onEditClick={handleEditClick} />
+      )}
     </div>
   )
 }

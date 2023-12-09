@@ -28,7 +28,7 @@ const TaskColumn = ({ columnTitle, tasks }: TaskColumnProps): JSX.Element => {
       </div>
       <div>
         {tasks.map((task: Task) => {
-          return <TaskCard key={task.id} task={task} />
+          return <TaskCard key={task.id} task={task} taskId={task.id} />
         })}
       </div>
       {isModalOpen && (

@@ -8,4 +8,4 @@ export interface Task {
     detail: string
     dueDate: string
     progressOrder: number
-  }
+}

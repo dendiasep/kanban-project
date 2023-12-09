@@ -9,3 +9,10 @@ export const AtomKeys = {
     WAITING_TASKS: 'waitingTasks',
     COMPLETED_TASKS: 'completedTasks',
   }
+
+  export const TASK_MODAL_TYPE = {
+    ADD: 'add',
+    EDIT: 'edit',
+    DELETE: 'delete',
+    // ... definisikan nilai lain jika diperlukan
+  };
