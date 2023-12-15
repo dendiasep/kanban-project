@@ -77,3 +77,15 @@ export const useTasksAction = (): useTaskActionType => {
     deleteTask,
   }
 }
+
+export const filterTasks = (tasks: Task[], filterType: 'completed' | 'uncompleted' | 'all'): Task[] => {
+  switch (filterType) {
+    case 'completed':
+      return tasks.filter((task) => task.progressOrder === TASK_PROGRESS_ID.COMPLETED);
+    case 'uncompleted':
+      return tasks.filter((task) => task.progressOrder !== TASK_PROGRESS_ID.COMPLETED);
+    case 'all':
+    default:
+      return tasks;
+  }
+};

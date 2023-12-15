@@ -47,6 +47,7 @@ const TaskListItem = ({ task }: TaskListItemProps): JSX.Element => {
   const {completeTask} = useTasksAction()
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  
   const handleEditClick = () => {
     // Lakukan apa pun yang diperlukan saat tombol "Edit" diklik
     setIsModalOpen(true)

@@ -45,6 +45,7 @@ const commonLinkStyles: React.CSSProperties = {
       padding: '20px',
       minHeight: '100vh',
       height: '100%',
+      width: '300px',
     },
     link: {
       ...commonLinkStyles,
