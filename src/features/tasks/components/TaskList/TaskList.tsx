@@ -1,14 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TaskModal from '../shared/TaskModal' // Ditambahkan
 import { TASK_PROGRESS_ID, TASK_MODAL_TYPE } from '../../../../constants/app'
 import { useRecoilValue } from 'recoil'
 import { tasksState } from '../../TaskAtoms'
 import TaskListItem from './TaskListItem'
 import type { Task, CSSProperties } from '../../../../types'
+import TaskFilter from '../shared/TaskFIlter'
+import { filterTasks } from '../hooks/Tasks'
 
 const TaskList = (): JSX.Element => {
-  const tasks: Task[] = useRecoilValue(tasksState)
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false) 
+  const tasks: Task[] = useRecoilValue(tasksState);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+  const [filteredTasks, setFilteredTasks] = useState<Task[]>(tasks);
+  const [filterType, setFilterType] = useState<'completed' | 'uncompleted' | 'all'>('all');
+
+  useEffect(() => {
+    setFilteredTasks(filterTasks(tasks, filterType));
+  }, [tasks, filterType]);
 
   return (
     <div style={styles.container}>
@@ -21,7 +30,11 @@ const TaskList = (): JSX.Element => {
         >
           <span className="material-icons">add</span>Add task
         </button>
-        <button style={styles.button}>
+        <button style={styles.button}
+         onClick={(): void => {
+          setIsFilterOpen(true) // Ditambahkan
+        }}
+        >
           <span className="material-icons">sort</span>Filter tasks
         </button>
       </div>
@@ -32,8 +45,8 @@ const TaskList = (): JSX.Element => {
           <div style={styles.tableHeaderDueDate}>Due Date</div>
           <div style={styles.tableHeaderProgress}>Progress</div>
         </div>
-        {tasks.map((task: Task) => {
-          return <TaskListItem task={task} key={task.id} />
+        {filteredTasks.map((task: Task) => {
+          return <TaskListItem task={task} key={task.id} />;
         })}
       </div>
       {isModalOpen && (
@@ -42,6 +55,20 @@ const TaskList = (): JSX.Element => {
           type={TASK_MODAL_TYPE.ADD}
           setIsModalOpen={setIsModalOpen}
           defaultProgressOrder={TASK_PROGRESS_ID.NOT_STARTED}
+        />
+      )}
+      {isFilterOpen && (
+        <TaskFilter
+          setIsFilterOpen={(isOpen: boolean) => {
+            setIsFilterOpen(isOpen);
+            // Jika filter ditutup, reset filteredTasks ke tasks
+            if (!isOpen) {
+              setFilteredTasks(tasks);
+            }
+          }}
+          setFilterType={setFilterType} // Kirim fungsi setFilterType ke TaskFilter
+          tasks={tasks} // Sertakan properti tasks
+          setFilteredTasks={setFilteredTasks} // Sertakan properti setFilteredTasks
         />
       )}
     </div>
