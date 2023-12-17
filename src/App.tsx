@@ -23,11 +23,12 @@ const router = createBrowserRouter([
       {
         path: 'task-progress',
         element: <TaskProgress />
-      }
-    ]
-  }
-        
-])
+      },
+    ],
+  },    
+],
+{basename:'/kanban-project/'}
+)
 
 function App(): JSX.Element {
   return  (
