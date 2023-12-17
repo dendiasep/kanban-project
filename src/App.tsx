@@ -1,4 +1,3 @@
-import React from 'react'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import SideMenuLayout from './layouts/SideMenuLayout'
 import { RecoilRoot } from 'recoil'
