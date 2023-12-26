@@ -1,46 +1,35 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import SideMenuLayout from './layouts/SideMenuLayout'
 import { RecoilRoot } from 'recoil'
-import TaskSummary from './features/tasks/components/TaskSummary'
-import TaskList from './features/tasks/components/TaskList/TaskList'
-import TaskProgress from './features/tasks/components/TaskProgress/TaskProgress'
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import TaskSummary from "./features/tasks/components/TaskSummary"
+import TaskList from "./features/tasks/components/TaskList/TaskList"
+import TaskProgress from "./features/tasks/components/TaskProgress/TaskProgress"
+import SideMenuLayout from "./layouts/SideMenuLayout"
 
-
-/*const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: '/',
     element: <SideMenuLayout />,
-    children: [
-      {
-      path: '/',
-      element:  <TaskSummary />,
+    children: [{
+        path: '/',
+        element: <TaskSummary />
       },
       {
         path: 'task-list',
-        element: <TaskList />,
+        element: <TaskList />
       },
       {
         path: 'task-progress',
         element: <TaskProgress />
       },
-    ],
-  },    
+    ],  
+  },
 ],
-{basename:'/kanban-project/'}
-)*/
+)
 
 function App(): JSX.Element {
-  return  (
+  return (
     <RecoilRoot>
-      <BrowserRouter>
-      <Routes>
-        <Route path="/" element= {<SideMenuLayout />} >
-          <Route path="/" element= {<TaskSummary />}></Route>
-          <Route path="task-list" element= {<TaskList />}></Route>
-          <Route path="task-progress" element= {<TaskProgress/>}></Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+      <RouterProvider router={router} />
     </RecoilRoot>
   )
 }
