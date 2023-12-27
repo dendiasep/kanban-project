@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react'
-import type { Task, CSSProperties } from '../../../../types'
+import type { Task, CSSProperties } from '../../../../types/index'
 import { filterTasks } from '../hooks/Tasks'
 
 interface TaskFilterProps {
