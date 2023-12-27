@@ -4,7 +4,7 @@ import {
     completedTasksSelector,
     uncompletedTasksSelector,
 } from '../TaskSelectors'
-import type { Task, CSSProperties } from '../../../types'
+import type { Task, CSSProperties } from '../../../types/index'
 
 const TaskSummary = (): JSX.Element => {
     const completedTasks =
