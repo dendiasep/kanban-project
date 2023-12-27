@@ -5,7 +5,7 @@ import {
   TASK_PROGRESS_STATUS,
   TASK_MODAL_TYPE
 } from '../../../../constants/app'
-import type { CSSProperties, Task } from '../../../../types'
+import type { CSSProperties, Task } from '../../../../types/index'
 import { useTasksAction } from '../hooks/Tasks'
 
 interface TaskFormProps {
