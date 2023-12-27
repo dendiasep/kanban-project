@@ -4,7 +4,7 @@ import { TASK_PROGRESS_ID, TASK_MODAL_TYPE } from '../../../../constants/app'
 import { useRecoilValue } from 'recoil'
 import { tasksState } from '../../TaskAtoms'
 import TaskListItem from './TaskListItem'
-import type { Task, CSSProperties } from '../../../../types'
+import type { Task, CSSProperties } from '../../../../types/index'
 import TaskFilter from '../shared/TaskFIlter'
 import { filterTasks } from '../hooks/Tasks'
 
