@@ -6,7 +6,7 @@ import {
   completedTasksSelector,
 } from '../../TaskSelectors'
 import TaskColumn from './TaskColumn'
-import type { Task, CSSProperties } from '../../../../types'
+import type { Task, CSSProperties } from '../../../../types/index'
 import {TASK_PROGRESS_STATUS} from '../../../../constants/app'
 import {useTasksAction} from '../hooks/Tasks'
 
