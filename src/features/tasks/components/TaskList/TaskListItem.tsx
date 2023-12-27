@@ -2,7 +2,7 @@ import React , { useState }from 'react'
 import TaskMenu from '../shared/TaskMenu'
 import TaskModal from '../shared/TaskModal'
 import { TASK_MODAL_TYPE } from '../../../../constants/recoilKeys'
-import type { Task, CSSProperties } from '../../../../types'
+import type { Task, CSSProperties } from '../../../../types/index'
 import {
     TASK_PROGRESS_STATUS,
     TASK_PROGRESS_ID,
