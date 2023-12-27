@@ -1,6 +1,6 @@
 import { selector } from 'recoil'
 import { tasksState } from './TaskAtoms'
-import type { Task } from '../../types'
+import type { Task } from '../../types/index'
 import {SelectorKeys} from '../../constants/recoilKeys' //
 
 export const uncompletedTasksSelector = selector<Task[]>({
