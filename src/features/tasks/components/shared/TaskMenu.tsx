@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react'
-import type { CSSProperties } from '../../../../types'
+import type { CSSProperties } from '../../../../types/index'
 import { useTasksAction } from '../hooks/Tasks'
 
 interface TaskMenuProps {
