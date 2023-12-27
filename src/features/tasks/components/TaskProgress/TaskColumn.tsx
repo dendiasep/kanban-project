@@ -2,7 +2,7 @@ import { useState } from 'react'
 import TaskModal from '../shared/TaskModal'
 import { TASK_MODAL_TYPE, TASK_PROGRESS_ID } from '../../../../constants/app'
 import TaskCard from './TaskCard'
-import type { Task, CSSProperties } from '../../../../types'
+import type { Task, CSSProperties } from '../../../../types/index'
 
 interface TaskColumnProps {
   columnTitle: string
