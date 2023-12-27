@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react'
-import type { CSSProperties, Task } from '../../../../types'
+import type { CSSProperties, Task } from '../../../../types/index'
 import TaskForm from './TaskForm'
 
 interface TaskModalProps {
